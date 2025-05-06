@@ -10,7 +10,7 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY_weather")
 LOCATION = "Vaterstetten"
 
-url = f"http://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={LOCATION}&days=3"
+url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={LOCATION}&days=3"
 
 response = req.get(url)
 
