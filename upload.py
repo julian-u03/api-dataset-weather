@@ -14,6 +14,9 @@ for local_file in data_folder.glob("*.csv"):
     dropbox_file = f"/{local_file.name}"
     with open(local_file, "rb") as file:
         drpbx.files_upload(file.read(), dropbox_file, mode=dropbox.files.WriteMode("overwrite"))
+    print(f"uploaded {local_file.name}")
 
 for csv_file in data_folder.glob("*.csv"):
     csv_file.write_text("")
+
+print("cleared")
