@@ -1,1 +1,19 @@
 cleared
+Unable to refresh access token without                 refresh token and app key
+Traceback (most recent call last):
+  File "/usr/local/bin/api-dataset-weather/upload.py", line 26, in <module>
+    drpbx.files_upload(file.read(), dropbox_file, mode=dropbox.files.WriteMode("overwrite"))
+  File "/usr/lib/python3/dist-packages/dropbox/base.py", line 3208, in files_upload
+    r = self.request(
+        ^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/dropbox/dropbox_client.py", line 326, in request
+    res = self.request_json_string_with_retry(host,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/dropbox/dropbox_client.py", line 476, in request_json_string_with_retry
+    return self.request_json_string(host,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/dropbox/dropbox_client.py", line 596, in request_json_string
+    self.raise_dropbox_error_for_resp(r)
+  File "/usr/lib/python3/dist-packages/dropbox/dropbox_client.py", line 639, in raise_dropbox_error_for_resp
+    raise AuthError(request_id, err)
+dropbox.exceptions.AuthError: AuthError('b3854ea526a14006ada1859c5739ca9e', AuthError('expired_access_token', None))
