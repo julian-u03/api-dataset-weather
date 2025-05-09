@@ -25,15 +25,15 @@ for attempt in range(1, max_retries + 1):
             data = response.json()
             break
         except ValueError:
-            print(f"Versuch {attempt}: Konnte JSON nicht dekodieren:", response.text)
+            print(f"{datetime.now().strftime('%H:%M')} - Versuch {attempt}: Konnte JSON nicht dekodieren:", response.text)
     else:
-        print(f"Versuch {attempt}: Fehler vom Server: {response.status_code} - {response.text}")
+        print(f"{datetime.now().strftime('%H:%M')} - Versuch {attempt}: Fehler vom Server: {response.status_code} - {response.text}")
 
     if attempt < max_retries:
-        print(f"Warte {retry_delay} Sekunden vor dem nächsten Versuch...")
+        print(f"{datetime.now().strftime('%H:%M')} - Warte {retry_delay} Sekunden vor dem nächsten Versuch...")
         time.sleep(retry_delay)
     else:
-        print("Fehlgeschlagen: Alle API-Versuche sind gescheitert.")
+        print(f"{datetime.now().strftime('%H:%M')} - Fehlgeschlagen: Alle API-Versuche sind gescheitert.")
         sys.exit(1)
 
 current_data = data['current']
