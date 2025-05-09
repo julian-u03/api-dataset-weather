@@ -4,6 +4,8 @@ import os
 import csv
 from pathlib import Path
 from datetime import datetime
+import time
+import sys
 
 load_dotenv()
 
@@ -12,9 +14,27 @@ LOCATION = "Vaterstetten"
 
 url = f"https://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={LOCATION}&days=3"
 
-response = req.get(url)
+max_retries = 3
+retry_delay = 60
 
-data = response.json()
+for attempt in range(1, max_retries + 1):
+    response = req.get(url)
+
+    if response.status_code == 200:
+        try:
+            data = response.json()
+            break
+        except ValueError:
+            print(f"Versuch {attempt}: Konnte JSON nicht dekodieren:", response.text)
+    else:
+        print(f"Versuch {attempt}: Fehler vom Server: {response.status_code} - {response.text}")
+
+    if attempt < max_retries:
+        print(f"Warte {retry_delay} Sekunden vor dem nächsten Versuch...")
+        time.sleep(retry_delay)
+    else:
+        print("Fehlgeschlagen: Alle API-Versuche sind gescheitert.")
+        sys.exit(1)
 
 current_data = data['current']
 forecast_0 = data['forecast']['forecastday'][0]
